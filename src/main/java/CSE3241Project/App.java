@@ -37,14 +37,17 @@ public class App {
         switch (userSelectionChoice) {
             case 1:
                 String warehouseID = in.nextLine();
+                System.out.println("Enter ID/SerialNo of Data to Delete");
                 data.deleteFromWarehouses(warehouseID);
                 break;
             case 2:
                 String memberID = in.nextLine();
+                System.out.println("Enter ID/SerialNo of Data to Delete");
                 data.deleteFromMembers(memberID);
                 break;
             case 3:
                 String itemSerialNumber = in.nextLine();
+                System.out.println("Enter ID/SerialNo of Data to Delete");
                 data.deleteFromRentableEquipment(itemSerialNumber);
                 break;
         }
@@ -54,20 +57,6 @@ public class App {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
-        switch (userSelectionChoice) {
-            case 1:
-                String warehouseID = in.nextLine();
-                data.deleteFromWarehouses(warehouseID);
-                break;
-            case 2:
-                String memberID = in.nextLine();
-                data.deleteFromMembers(memberID);
-                break;
-            case 3:
-                String itemSerialNumber = in.nextLine();
-                data.deleteFromRentableEquipment(itemSerialNumber);
-                break;
-        }
 
     }
     
@@ -79,8 +68,16 @@ public class App {
 
         while (userSelectionChoice != 0) {
         NavigationMessages.welcomeNavigation();
+        String input = in.nextLine();
 
-        userSelectionChoice = Integer.parseInt(in.nextLine());
+        try {
+            // Try to parse the input
+            userSelectionChoice = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            // Handle the case where input is not a valid number
+            System.out.println("Invalid input. Please enter a number.");
+            continue; // Continue the loop to re-prompt for input
+        }
 
         switch (userSelectionChoice) {
             case 1:
