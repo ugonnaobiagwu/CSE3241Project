@@ -57,7 +57,7 @@ public class App {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
-
+        //TO-DO: IMPLEMENT SEARCH
     }
     
 
