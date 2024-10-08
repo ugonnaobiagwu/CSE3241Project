@@ -231,11 +231,23 @@ public class DummyDataManager {
             }
         }
 
-        if (this.allWarehouses.contains(specificRentableEquipment)) {
+        if (this.allRentableEquipment.contains(specificRentableEquipment)) {
             System.out.println("For Rentable Equipment" + itemSerialNumber + ": ");
             System.out.println();
             System.out.println("Serial Number: " + specificRentableEquipment.itemSerialNumber);
-           //SHOW ALL MEMBERS
+            System.out.println("Name: " + specificRentableEquipment.name);
+            System.out.println("Model: " + specificRentableEquipment.model);
+            System.out.println("Status: " + specificRentableEquipment.status);
+            System.out.println("Manufacturer ID: " + specificRentableEquipment.manufacturerID);
+            System.out.println("Location: " + specificRentableEquipment.location);
+            System.out.println("Weight: " + specificRentableEquipment.weight);
+            System.out.println("Warehouse ID: " + specificRentableEquipment.warehouseID);
+            System.out.println("Length: " + specificRentableEquipment.length);
+            System.out.println("Width: " + specificRentableEquipment.width);
+            System.out.println("Height: " + specificRentableEquipment.height);
+            System.out.println("Item Size: " + specificRentableEquipment.itemSize);
+            System.out.println("Cost: " + specificRentableEquipment.cost);
+            System.out.println("Profit Per Item: " + specificRentableEquipment.profitPerItem);
         } else {
             System.out.println("Could not find equipment with SERIAL NUMBER: " + itemSerialNumber);
         }

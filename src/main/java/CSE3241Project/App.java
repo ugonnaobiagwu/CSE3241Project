@@ -8,10 +8,6 @@ import java.util.Scanner;
 import main.java.CSE3241Project.models.DummyDataManager;
 
 public class App {
-    public static String getGreeting() {
-        return "Hello World!";
-    }
-    
 
     public static void addRecords(Scanner in, DummyDataManager data) {
         NavigationMessages.selectRecordType();
@@ -36,18 +32,18 @@ public class App {
         userSelectionChoice = Integer.parseInt(in.nextLine());
         switch (userSelectionChoice) {
             case 1:
-                String warehouseID = in.nextLine();
                 System.out.println("Enter ID Warehouse to Delete");
+                String warehouseID = in.nextLine();
                 data.deleteFromWarehouses(warehouseID);
                 break;
             case 2:
-                String memberID = in.nextLine();
                 System.out.println("Enter ID of Member to Delete");
+                String memberID = in.nextLine();
                 data.deleteFromMembers(memberID);
                 break;
             case 3:
-                String itemSerialNumber = in.nextLine();
                 System.out.println("Enter SERIAL NUMBER of Equipment to Delete");
+                String itemSerialNumber = in.nextLine();
                 data.deleteFromRentableEquipment(itemSerialNumber);
                 break;
         }
@@ -59,18 +55,21 @@ public class App {
         userSelectionChoice = Integer.parseInt(in.nextLine());
         switch (userSelectionChoice) {
             case 1:
-                String warehouseID = in.nextLine();
                 System.out.println("Enter ID Warehouse to Retrieve");
+                String warehouseID = in.nextLine();
+                System.out.println();
                 data.searchForSpecificWarehouse(warehouseID);
                 break;
             case 2:
-                String memberID = in.nextLine();
                 System.out.println("Enter ID of Member to Retrieve");
+                String memberID = in.nextLine();
+                System.out.println();
                 data.searchForSpecificMember(memberID);
                 break;
             case 3:
-                String itemSerialNumber = in.nextLine();
                 System.out.println("Enter SERIAL NUMBER of Equipment to Retrieve");
+                String itemSerialNumber = in.nextLine();
+                System.out.println();
                 data.searchForSpecificRentableEquipment(itemSerialNumber);
                 break;
         }
@@ -134,7 +133,6 @@ public class App {
                 break;
         }
     }
-
         in.close();
     }
 }
