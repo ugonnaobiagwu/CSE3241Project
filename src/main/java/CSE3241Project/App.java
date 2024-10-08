@@ -37,17 +37,17 @@ public class App {
         switch (userSelectionChoice) {
             case 1:
                 String warehouseID = in.nextLine();
-                System.out.println("Enter ID/SerialNo of Data to Delete");
+                System.out.println("Enter ID Warehouse to Delete");
                 data.deleteFromWarehouses(warehouseID);
                 break;
             case 2:
                 String memberID = in.nextLine();
-                System.out.println("Enter ID/SerialNo of Data to Delete");
+                System.out.println("Enter ID of Member to Delete");
                 data.deleteFromMembers(memberID);
                 break;
             case 3:
                 String itemSerialNumber = in.nextLine();
-                System.out.println("Enter ID/SerialNo of Data to Delete");
+                System.out.println("Enter SERIAL NUMBER of Equipment to Delete");
                 data.deleteFromRentableEquipment(itemSerialNumber);
                 break;
         }
@@ -57,7 +57,23 @@ public class App {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
-        //TO-DO: IMPLEMENT SEARCH
+        switch (userSelectionChoice) {
+            case 1:
+                String warehouseID = in.nextLine();
+                System.out.println("Enter ID Warehouse to Retrieve");
+                data.searchForSpecificWarehouse(warehouseID);
+                break;
+            case 2:
+                String memberID = in.nextLine();
+                System.out.println("Enter ID of Member to Retrieve");
+                data.searchForSpecificMember(memberID);
+                break;
+            case 3:
+                String itemSerialNumber = in.nextLine();
+                System.out.println("Enter SERIAL NUMBER of Equipment to Retrieve");
+                data.searchForSpecificRentableEquipment(itemSerialNumber);
+                break;
+        }
     }
     
 
