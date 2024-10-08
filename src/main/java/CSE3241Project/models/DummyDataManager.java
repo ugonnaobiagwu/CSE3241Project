@@ -206,7 +206,7 @@ public class DummyDataManager {
             }
         }
 
-        if (this.allWarehouses.contains(specificMember)) {
+        if (this.allMembers.contains(specificMember)) {
             System.out.println("For Member" + memberID + ": ");
             System.out.println();
             System.out.println("Name: " + specificMember.name);
