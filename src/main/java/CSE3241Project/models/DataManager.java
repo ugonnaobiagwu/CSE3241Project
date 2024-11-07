@@ -1,69 +1,151 @@
-//package main.java.CSE3241Project.models;
-//
-//import java.util.ArrayList;
+package main.java.CSE3241Project.models;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.Scanner;
+//import java.util.Arrays;
+//import java.util.HashSet;
 //import java.util.Scanner;
-//
-//// Do all of these need to be init at the instantiation?
-//public class DummyDataManager { 
-//    public ArrayList<RentableEquipment> allRentableEquipment;
-//    public ArrayList<Warehouse> allWarehouses;
-//    public ArrayList<Member> allMembers;
-//
-//    public DummyDataManager() {
+//import java.util.Set;
+
+public class DataManager {
+
+private static String DATABASE = "ProjectDatabase.db";
+	
+	public static Connection dbConnection = null;
+	
+	private static PreparedStatement ps;
+	
+
+    public static void dbInit() {
+        String connectionString = "jdbc:sqlite:" + DATABASE;
+        dbConnection = null; 
+        try {
+        	dbConnection = DriverManager.getConnection(connectionString);
+            if (dbConnection != null) {
+                DatabaseMetaData metadata = dbConnection.getMetaData();
+                System.out.println("The driver name is " + metadata.getDriverName());
+                System.out.println("The connection to the database was successful.");
+            } else {
+            	System.out.println("Database connection failed, but did not throw an error.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Something went wrong in database connection.");
+        }
+        
+        try {
+        	ps = dbConnection.prepareStatement("INSERT INTO Manufacturer (Manufacturer_ID, Manufacturer_Name)"
+        			+ "VALUES (ThisisanID, ThisAName)");
+        	ps.execute();
+        } catch (SQLException e) {
+        	 System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void dbQuery(Connection dbConnection, PreparedStatement stmnt) {
+    	try {
+        	ResultSet rs = stmnt.executeQuery();
+        	ResultSetMetaData rsmd = rs.getMetaData();
+        	int columnCount = rsmd.getColumnCount();
+        	for (int i = 1; i <= columnCount; i++) {
+        		String value = rsmd.getColumnName(i);
+        		System.out.print(value);
+        		if (i < columnCount) System.out.print(",  ");
+        	}
+			System.out.print("\n");
+        	while (rs.next()) {
+        		for (int i = 1; i <= columnCount; i++) {
+        			String columnValue = rs.getString(i);
+            		System.out.print(columnValue);
+            		if (i < columnCount) System.out.print(",  ");
+        		}
+    			System.out.print("\n");
+        	}
+        	rs.close();
+        	stmnt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    
+
+    public DataManager() {
 //        this.allRentableEquipment = new ArrayList<RentableEquipment>();
 //        this.allMembers = new ArrayList<Member>();
 //        this.allWarehouses = new ArrayList<Warehouse>();
-//    }
-//
-//    public void addToRentableEquipment(Scanner in) {
-//        System.out.println("Please enter serial number");
-//        String itemSerialNumber = in.nextLine();
-//
-//        System.out.println("Please enter name");
-//        String name = in.nextLine();
-//
-//        System.out.println("Please enter model");
-//        String model = in.nextLine();
-//
-//        System.out.println("Please enter status");
-//        String status = in.nextLine();
-//
-//        System.out.println("Please enter manufacturerID");
-//        String manufacturerID = in.nextLine();
-//
-//        System.out.println("Please enter location");
-//        String location = in.nextLine();
-//
-//        System.out.println("Please enter weight");
-//        Double weight = in.nextDouble();
-//
-//        System.out.println("Please enter warehouseID");
-//        String warehouseID = in.nextLine();
-//
-//        System.out.println("Please enter length");
-//        Double length = in.nextDouble();
-//
-//        System.out.println("Please enter width");
-//        Double width = in.nextDouble();
-//
-//        System.out.println("Please enter height");
-//        Double height = in.nextDouble();
-//
-//        System.out.println("Please enter itemSize");
-//        Double itemSize = in.nextDouble();
-//
-//        System.out.println("Please enter cost");
-//        Double cost = in.nextDouble();
-//
-//        System.out.println("Please enter profit per item");
-//        Double profitPerItem = in.nextDouble();
-//
+    }
+
+    public static void addRentableEquipment(Scanner in) {
+        System.out.println("Please enter serial number");
+        String itemSerialNumber = in.nextLine();
+
+        System.out.println("Please enter location");
+        String location = in.nextLine();
+        
+        System.out.println("Please enter model");
+        String model = in.nextLine();
+
+        System.out.println("Please enter status");
+        String status = in.nextLine();
+
+
+        System.out.println("Please enter warehouseID");
+        String warehouseID = in.nextLine();
+
+        System.out.println("Please enter review history");
+        String reviewHistory = in.nextLine();
+        
+        System.out.println("Please enter order history");
+        String orderHistory = in.nextLine();
+
+        System.out.println("Please enter warranty expiration date in YYYY-MM-DD format");
+        String warrantyExpirationDate = in.nextLine();
+        
+        System.out.println("Please enter year");
+        int year = Integer.parseInt(in.nextLine());
+        
+        System.out.println("Please enter stock");
+        int stock = Integer.parseInt(in.nextLine());
+        
+        RentableEquipment equipment = new RentableEquipment(itemSerialNumber, model, status, location, warehouseID, reviewHistory, 
+        		orderHistory, warrantyExpirationDate, year, stock);
+        
+        String sql = "INSERT INTO Rentable_Equipment_Item (Item_Serial_No, Status, Location, "
+        		+ "Review_History, Order_History, Warranty_Expiration_Date, Year, Stock, Warehouse_ID, Model)"
+        		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+        	 ps = dbConnection.prepareStatement(sql);
+        	 ps.setString(1, equipment.Item_Serial_No);
+        	 ps.setString(2, equipment.Status);
+        	 ps.setString(3, equipment.Location);
+        	 ps.setString(4, equipment.Review_History);
+        	 ps.setString(5, equipment.Order_History);
+        	 ps.setString(6, equipment.Warranty_Expiration_Date);
+        	 ps.setString(7, "" + equipment.Year);
+        	 ps.setString(8, "" + equipment.Stock);
+        	 ps.setString(9, equipment.Warehouse_ID);
+        	 ps.setString(10, equipment.Model);
+        	 ps.execute();
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
+        
+        
+        
+
 //        this.allRentableEquipment.add(new RentableEquipment(itemSerialNumber, name, model, status, manufacturerID, location, weight, 
 //        warehouseID, length, width, height, itemSize, 
 //        cost, profitPerItem));
-//        
-//    }
-//
+        
+    }
+
 //    public void addToWarehouses(Scanner in) {
 //        System.out.println("Please enter city");
 //        String city = in.nextLine();
@@ -81,16 +163,15 @@
 //        String warehouseID = in.nextLine();
 //
 //        System.out.println("Please enter manager storageCapacity");
-//        long storageCapacity = in.nextLong();
+//        int storageCapacity = Integer.parseInt(in.nextLine());
 //
 //        System.out.println("Please enter manager droneCapacity");
-//        long droneCapacity = in.nextLong();
+//        int droneCapacity = Integer.parseInt(in.nextLine());
 //
 //        System.out.println("Please enter manager droneQuantity");
-//        long droneQuantity = in.nextLong();
+//        int droneQuantity = Integer.parseInt(in.nextLine());
 //
-//        this.allWarehouses.add(new Warehouse(city, address, phone, managerName, warehouseID, 
-//        storageCapacity, droneCapacity, droneQuantity));
+//      
 //    }
 //
 //    public void addToMembers(Scanner in) {
@@ -252,4 +333,5 @@
 //            System.out.println("Could not find equipment with SERIAL NUMBER: " + itemSerialNumber);
 //        }
 //    }
-//}
+}
+

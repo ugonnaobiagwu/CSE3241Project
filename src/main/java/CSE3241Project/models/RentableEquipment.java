@@ -1,27 +1,22 @@
 package main.java.CSE3241Project.models;
 
 public class RentableEquipment {
-    public String itemSerialNumber, name, model, status, manufacturerID, 
-    location, reviewHistory, orderHistory, warehouseID;
+    public String Item_Serial_No, Status, Location, Review_History, Order_History, Warranty_Expiration_Date, Warehouse_ID, Model;
 
-    public double length, width, height, itemSize, cost, weight, profitPerItem;
+    public int Year, Stock;
 
-    public RentableEquipment(String itemSerialNumber, String name, String model, String status, String manufacturerID, 
-    String location, Double weight, String warehouseID, Double length, Double width, Double height, Double itemSize, Double cost, Double profitPerItem) {
-        this.itemSerialNumber = itemSerialNumber; 
-        this.name = name;
-        this.model = model;
-        this.status = status;
-        this.manufacturerID = manufacturerID;
-        this.location = location;
-        this.weight = weight;
-        this.warehouseID = warehouseID;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.itemSize = itemSize;
-        this.cost = cost;
-        this.profitPerItem = profitPerItem;
+    public RentableEquipment(String itemSerialNumber, String model, String status,
+    String location, String warehouseID, String reviewHistory, String orderHistory, String warrantyExpirationDate, int year, int stock) {
+        this.Item_Serial_No = itemSerialNumber;
+        this.Model = model;
+        this.Location = location;
+        this.Status = status;
+        this.Warehouse_ID = warehouseID;
+        this.Review_History = reviewHistory;
+        this.Order_History = orderHistory;
+        this.Warranty_Expiration_Date = warrantyExpirationDate;
+        this.Year = year;
+        this.Stock = stock;
     }
     
 }

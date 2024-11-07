@@ -5,28 +5,28 @@ package main.java.CSE3241Project;
 
 import java.util.Scanner;
 
-import main.java.CSE3241Project.models.DummyDataManager;
+import main.java.CSE3241Project.models.DataManager;
 
 public class App {
 
-    public static void addRecords(Scanner in, DummyDataManager data) {
+    public static void addRecords(Scanner in) {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
         switch (userSelectionChoice) {
             case 1:
-                data.addToWarehouses(in);
+                DataManager.addToWarehouses(in);
                 break;
             case 2:
-                data.addToMembers(in);
+//                data.addToMembers(in);
                 break;
             case 3:
-                data.addToRentableEquipment(in);
+            	DataManager.addRentableEquipment(in);
                 break;
         }
     }
 
-    public static void deleteRecords(Scanner in, DummyDataManager data) {
+    public static void deleteRecords(Scanner in) {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
@@ -34,22 +34,22 @@ public class App {
             case 1:
                 System.out.println("Enter ID Warehouse to Delete");
                 String warehouseID = in.nextLine();
-                data.deleteFromWarehouses(warehouseID);
+//                data.deleteFromWarehouses(warehouseID);
                 break;
             case 2:
                 System.out.println("Enter ID of Member to Delete");
                 String memberID = in.nextLine();
-                data.deleteFromMembers(memberID);
+//                data.deleteFromMembers(memberID);
                 break;
             case 3:
                 System.out.println("Enter SERIAL NUMBER of Equipment to Delete");
                 String itemSerialNumber = in.nextLine();
-                data.deleteFromRentableEquipment(itemSerialNumber);
+//                data.deleteFromRentableEquipment(itemSerialNumber);
                 break;
         }
     }
 
-    public static void searchRecords(Scanner in, DummyDataManager data) {
+    public static void searchRecords(Scanner in) {
         NavigationMessages.selectRecordType();
         int userSelectionChoice = -1;
         userSelectionChoice = Integer.parseInt(in.nextLine());
@@ -58,28 +58,29 @@ public class App {
                 System.out.println("Enter ID Warehouse to Retrieve");
                 String warehouseID = in.nextLine();
                 System.out.println();
-                data.searchForSpecificWarehouse(warehouseID);
+//                DataManager.searchForSpecificWarehouse(warehouseID);
                 break;
             case 2:
                 System.out.println("Enter ID of Member to Retrieve");
                 String memberID = in.nextLine();
                 System.out.println();
-                data.searchForSpecificMember(memberID);
+//                data.searchForSpecificMember(memberID);
                 break;
             case 3:
                 System.out.println("Enter SERIAL NUMBER of Equipment to Retrieve");
                 String itemSerialNumber = in.nextLine();
                 System.out.println();
-                data.searchForSpecificRentableEquipment(itemSerialNumber);
+//                data.searchForSpecificRentableEquipment(itemSerialNumber);
                 break;
         }
     }
     
 
     public static void main(String[] args) {
+    	DataManager.dbInit();
         int userSelectionChoice = -1;
         Scanner in = new Scanner(System.in);
-        DummyDataManager data = new DummyDataManager();
+       
 
         while (userSelectionChoice != 0) {
         NavigationMessages.welcomeNavigation();
@@ -96,17 +97,17 @@ public class App {
 
         switch (userSelectionChoice) {
             case 1:
-                addRecords(in, data);
+                addRecords(in);
                 userSelectionChoice = -1;
                 break;
             
             case 2:
-                deleteRecords(in, data);
+                deleteRecords(in);
                 userSelectionChoice = -1;
                 break;
             
             case 3:
-                searchRecords(in, data);
+                searchRecords(in);
                 userSelectionChoice = -1;
                 break;
             
